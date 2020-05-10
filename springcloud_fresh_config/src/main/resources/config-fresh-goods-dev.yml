@@ -1,0 +1,48 @@
+spring:
+    datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driverClassName: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/fresh ?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+      username: lldt
+      password: 520320
+    
+    http:
+      encoding:
+        force: true
+        charset: UTF-8
+        enable: true
+    
+    session:
+      store-tye: redis
+     
+    redis:
+      database: 0
+      host: 127.0.0.1
+      port: 6379
+      password: 
+      timeout: 5000
+      jedis:
+        pool:
+          max-active: 8
+   
+    mail:
+      host: smtp.qq.com
+      username: 1914764315@qq.com
+      password: wwqlkkttdvygcceb
+      port: 465
+      protocol: smtp
+      properties:
+         mail:
+            smtp:
+               auth: true
+               ssl: 
+                  enable: true
+
+mybatis:
+   mapper-locations: mapper/*Mapper.xml
+   type-aliases-package: com.lldt.fresh.goods.entity 
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://lldt:520320@127.0.0.1:8888/eureka
