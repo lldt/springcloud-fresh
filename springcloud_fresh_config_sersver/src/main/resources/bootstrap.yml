@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: fresh-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/lldt/springcloud-fresh.git
+          username: 596334236@qq.com #用户
+          password: tjyan520320 #密码
+          defalut-label: master #分支
+          search-paths: springcloud_fresh_config/src/main/resources #配置文件的地址

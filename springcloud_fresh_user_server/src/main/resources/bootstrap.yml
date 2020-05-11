@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: 7777
+
+---
+---
+spring:
+  profiles: dev-7777
+  application:
+    name: fresh-user
+  cloud:
+    config:
+      uri: https://github.com/lldt/springcloud-fresh.git
