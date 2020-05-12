@@ -29,7 +29,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.lldt.springcloud.fresh.user.FreshUserApplication</mainClass>
+					<mainClass>com.lldt.fresh.user.FreshUserApplication</mainClass>
 				</configuration>
 				<executions>
 					<execution>

@@ -1,0 +1,23 @@
+# 服务器启动的时候占用的端口
+server:
+   port: 8888
+
+spring:
+  application:
+    name: eureka-server
+  security:
+    user:
+      name: lldt
+      password: 520320
+
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${eureka.instance.hostname}:${server.port}/eureka
+  server:
+    enableSelfPreservation: false #关闭自我保护

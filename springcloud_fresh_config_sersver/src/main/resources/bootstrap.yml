@@ -1,12 +1,45 @@
+server:
+  port: 5566
+
+
+#配置为本地读取
 spring:
   application:
     name: fresh-config-server
+  profiles:
+    active: native #说明是本地配置中心，即本地读取配置
   cloud:
     config:
       server:
-        git:
-          uri: https://github.com/lldt/springcloud-fresh.git
-          username: 596334236@qq.com #用户
-          password: tjyan520320 #密码
-          defalut-label: master #分支
-          search-paths: springcloud_fresh_config/src/main/resources #配置文件的地址
+        natvie:
+          search-locations: classpath:/config #当前项目的类路径下的config目录
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://lldt:520320@127.0.0.1:8888/eureka
+
+
+
+
+
+
+
+
+
+
+
+
+
+#spring:
+#  application:
+#    name: fresh-config-server
+#  cloud:
+#    config:
+#      server:
+#        git:
+#         uri: https://github.com/lldt/springcloud-fresh.git
+#          username: 596334236@qq.com #用户
+#         password: tjyan520320 #密码
+#         defalut-label: master #分支
+#         search-paths: springcloud_fresh_config/src/main/resources #配置文件的地址
