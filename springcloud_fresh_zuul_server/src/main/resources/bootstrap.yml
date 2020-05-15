@@ -1,0 +1,27 @@
+spring:
+  profiles:
+    active: dev-7878
+
+---
+server:
+  port: 7878
+
+spring:
+  profiles: dev-7878
+  cloud:
+    config:
+      uri: http://127.0.0.1:5566/ #从配置服务器中读取文件
+      label: master #从主分支读取
+      name: config-fresh-zuul #文件前缀
+      profile: dev #实际上读的是{name}-{profile}.yml
+      #descovery:
+      #  enable: true #配置发现
+      #  serviceId: fresh-config-server #配置中心服务器名
+        
+management:
+  enpoint:
+    shutdown:
+      enable: false
+  enpoints:
+    refresh:
+      enable: true

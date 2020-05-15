@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>天天生鲜-首页</title>
+<link rel="short icon" href="images/copylogo.png">
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/foot.css">
+</head>
+
+<body>
+	<input type="hidden" id="user_id" value="">
+	<div id="login_info">
+		<!-- 头部  -->
+		<div class="header_con">
+			<div class="header">
+				<div class="welcome fl">欢迎来到天天生鲜</div>
+				<div class="fr">
+					<div class="login_info fl">
+						<span>欢迎：<em v-if="nickName != ''">{{nickName}}</em> <em
+							v-else>yc</em></span>
+
+					</div>
+					<div class="login_btn fl">
+						<a v-if="nickName == ''" href="/user/login.html">登录</a> <span>
+							| </span> <a href="/user/register.html">注册</a>
+					</div>
+					<div class="user_link fl">
+						<span> | </span> <a href="/user/user.html">用户中心</a> <span>
+							| </span> <a href="front/cart.html">我的购物车</a> <span> | </span> <a
+							href="order.html">我的订单</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- 搜素框 -->
+	<div class="search_bar clearfix">
+		<a href="index.html" class="logo fl"><img src="images/logo.png"></a>
+		<div class="search_con fl">
+			<form>
+				<input type="text" class="input_text fl" name="key_words"
+					placeholder="搜索商品"> <input type="submit"
+					class="input_btn fr" value="搜索">
+			</form>
+		</div>
+		<div class="guest_cart fr">
+			<a href="front/cart.html" class="cart_name fl">我的购物车</a>
+			<div class="goods_count fl" id="show_count">1</div>
+		</div>
+	</div>
+
+	<!-- 商品分类 -->
+	<div class="navbar_con">
+		<div class="navbar">
+			<h1 class="fl">全商品分类</h1>
+			<ul class="navlist fl">
+				<li><a href="">首页</a></li>
+				<li class="interval">|</li>
+				<li><a href="">手机生鲜</a></li>
+				<li class="interval">|</li>
+				<li><a href="">抽奖</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- 导航栏 -->
+	<div class="center_con clearfix">
+		<div class="subnav fl" id="subnav">
+			<ul>
+				<li><a href="#model01" class="fruit">新鲜水果</a></li>
+				<li><a href="#model02" class="seafood">海鲜水产</a></li>
+				<li><a href="#model03" class="meet">猪牛羊肉</a></li>
+				<li><a href="#model04" class="egg">禽类蛋品</a></li>
+				<li><a href="#model05" class="vegetables">新鲜蔬菜</a></li>
+				<li><a href="#model06" class="ice">速冻食品</a></li>
+			</ul>
+		</div>
+		<div class="slide fl">
+			<ul class="slide_pics">
+				<li><a href="" class=""><img src="images/slide.jpg"
+						alt="幻灯片"></a></li>
+				<li><a href="" class=""><img src="images/slide02.jpg"
+						alt="幻灯片"></a></li>
+				<li><a href="" class=""><img src="images/slide03.jpg"
+						alt="幻灯片"></a></li>
+				<li><a href="" class=""><img src="images/slide04.jpg"
+						alt="幻灯片"></a></li>
+			</ul>
+			<div class="prev"></div>
+			<div class="next"></div>
+			<ul class="points"></ul>
+		</div>
+		<div class="adv fl">
+			<a href=""><img src="images/adv01.jpg" alt="清凉一夏"></a> <a
+				href=""><img src="images/adv02.jpg" alt="盛夏尝鲜"></a>
+		</div>
+	</div>
+
+	<!-- 商品展示 -->
+	<div id="index_goodsshow"></div>
+
+
+	<!-- 版权所有 -->
+	<div class="footer">
+		<div class="foot_link">
+			<a href="#">关于我们</a> <span> | </span> <a href="#">联系我们</a> <span>
+				| </span> <a href="#">招聘广告</a> <span> | </span> <a href="#">友情链接</a>
+		</div>
+		<p>CopyRight &copy; 2019 衡阳市源辰信息科技有限公司 All Rights Reserverd</p>
+		<p>电话：0734-8355998 湘ICP备16015987号-1</p>
+	</div>
+	<!--  注意引入顺序 -->
+	<script type="text/javascript"></script>
+	<script type="text/javascript" src="js/vue.js"></script>
+	<script type="text/javascript" src="js/axios.js"></script>
+	<script type="text/javascript" src="js/qs.js"></script>
+	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="js/slide.js"></script>
+	<script type="text/javascript" src="js/check.js"></script>
+</body>
+</html>

@@ -6,10 +6,11 @@ spring:
   application:
     name: eureka-server
   security:
+    basic: 
+      enabled: false
     user:
       name: lldt
       password: 520320
-
 
 eureka:
   instance:

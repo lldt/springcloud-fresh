@@ -1,0 +1,39 @@
+# 服务器启动的时候占用的端口
+server:
+   port: 6868
+
+spring:
+  application:
+    name: fresh-zuul
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://lldt:520320@127.0.0.1:8888/eureka
+
+zuul: 
+  max:
+    host:
+      connections: 500
+  host:
+    maxTotalConnections: 200 #最大连接数 默认值为200
+    maxPerRouteConnections: 20 #每个路由的最大连接数 默认为20
+  routes:
+    # 标识你的服务器名字，可以自定义，一般为了方便建议采用服务器名字
+    service-rpc-user:
+      # 服务器映射路径，目的是不暴露你的ip地址  
+      path: /user/**
+      serviceId: fresh-user #注册到Eureka Server服务器中的名字
+      # zuul在路由的时候zuul会改写request的header，这个配置就是对哪些header敏感，会过滤这些header，后面的这些不过滤为空说明
+      sensitiveHeaders: "*"
+      
+    service-rpc-order:
+      path: /order/**
+      serviceId: fresh-order #注册到Eureka Server服务器中的名字
+      sensitiveHeaders: "*"
+      
+    service-rpc-goods:
+      path: /view/**
+      serviceId: fresh-goods #注册到Eureka Server服务器中的名字
+      sensitiveHeaders: "*"

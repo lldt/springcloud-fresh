@@ -9,107 +9,151 @@
 </head>
 
 <body>
+
 	<!-- logo区区域 -->
 	<div class="login_top">
-    	<a href="index.html" class="login_logo"><img src="images/logo02.png"></a>
-    </div>
-	
-	<!-- 内容区域 -->
-    <div class="login_form_bg">
-    	<div class="login_form_wrap clearfix">
-        	<div class="login_banner fl"></div>
-            <div class="slogn fl">日夜兼程 · 急速送达</div>	
-            <div class="login_form fr">
-                <div class="login_title	clearfix">
-                    <h1 class="fl">用户登陆</h1>
-                    <a href="register.html" class="fl">立即注册</a>
-                </div>
-				<!-- 登录区域 -->
-                <div class="form_input clearfix">
-                    <form>
-						<ul>
-                            <li>
-                                <input type="text" name="nickname" class="name_input" id="nickname" placeholder="请输入用户名" id="nickname">
-                                <div class="user_error">输入错误</div>
-                            </li>
-                            <li>
-                                <input type="password" name="pwd" class="pwd_input" id="pwd" placeholder="请输入密码" id="pwd">
-                                <span class="waring-info" style="color: red" id="waring-info"></span>
-                            </li>
-                            <li>
-                            	<div>
-                                <input type="text" name="yzm" id="yzm" class="yzm_input"
-                                placeholder="请输入验证码">
-                                <img id="image" src="code/getcode" title="验证码图" onclick="refresh(this)"/>
-                              <!-- <label><a onclick="refresh(this)"><img class="code" src="images/yzm.png" ></a></label>-->
-                                </div>
-                                    <!--<img id="code" src="http://localhost:8080/Fresh/VerifyCodeServlet">-->
-                                    
-                                    
-                                <div class="code_error" id="code_error">验证码错误</div>
-                            </li>
-                            <li>
-                                <div class="more_input clearfix">
-                                    <input type="checkbox" name="" id="remember">
-                                    <label for="remember">记住用户名</label>
-                                    <a href="#">忘记密码</a>
-                                </div>
-                            </li>
-                            <li>
-                               <input type="button" value="登录" class="submit_input" onclick = "login()">
-                            </li>
-                      	</ul>
-                    </form>
-                </div>
-            </div>
-         </div>
-    </div>
-	
-	<!-- 版权所有-->
-    <div class="footer">
-    	<div class="foot_link">
-        	<a href="#">关于我们</a><span> | </span>
-        	<a href="#">联系我们</a><span> | </span>
-        	<a href="#">招聘广告</a><span> | </span>
-            <a href="#">友情链接</a>
-        </div>
-        <p>CopyRight &copy;  2019 衡阳市源辰信息科技有限公司 All Rights Reserverd</p>
-        <p>电话：0734-8355998 湘ICP备16015987号</p>
-    </div>
-	<script src="js/jquery-3.4.1.min.js"></script>
-	<script>
-		//切换验证码
-		function refresh(obj){
-			obj.src="code/getcode?"+Math.random();
-		}
-		
-		//模拟登陆
-		function login(	){
-			//获取用户名
-			var nickname = $("#nickname").val();
-			//获取密码
-			var pwd = $("#pwd").val();
-			//获取验证码
-			var yzm = $("#yzm").val();
-			//登陆	
-			if( nickname == '' || pwd == '' || yzm == '' ){
-				return;
-			}
-			$.post("admin/userlogin",{nickName:nickname,pwd:pwd,yzm:yzm},function(data){
-				data = parseInt($.trim(data));
-				
-				if (data ==1) {
-					location.href="index.html";
-				} else if(data == -56){
-					$("#code_error").attr("style","visibility:visible");
+		<a href="index.html" class="login_logo"><img
+			src="images/logo02.png"></a>
+	</div>
 
-				}else {
-					$("#code_error").attr("style","visibility:hidden");
-					$("#waring-info").text("账号或密码错误，请确认后重新登录...");
+	<div id="app">
+		<!-- 内容区域 -->
+		<div class="login_form_bg">
+			<div class="login_form_wrap clearfix">
+				<div class="login_banner fl"></div>
+				<div class="slogn fl">日夜兼程 · 急速送达</div>
+				<div class="login_form fr">
+					<div class="login_title	clearfix">
+						<h1 class="fl">用户登陆</h1>
+						<a href="register.html" class="fl">立即注册</a>
+					</div>
+					<!-- 登录区域 -->
+					<div class="form_input clearfix">
+						<form>
+							<ul>
+								<li><input type="text" name="nickname" class="name_input"
+									id="nickname" placeholder="请输入用户名" id="nickname" @blur="checkInfo(0)" v-model="account"> 
+									<div class="user_error"><span v-if="status[0]">账号格式输入错误</span></div></li>
+								<li><input type="password" name="pwd" class="pwd_input"  @blur="checkInfo(1)" v-model="pwd">
+									<div class="user_error"><span v-if="status[1]">密码格式错误</span></div>
+								</li>
+								<li>
+									<div>
+										<input type="text" name="yzm" id="yzm" class="yzm_input"
+											placeholder="请输入验证码" @blur="checkInfo(2)" v-model="code">  <img id="image"
+											src="code/getcode" title="验证码图" onclick="refresh(this)" />
+									</div> 
+									<div class="code_error" id="code_error"> <span v-if="status[2]">{{info}}</span></div>
+								</li>
+								<li>
+									<div class="more_input clearfix">
+										<input type="checkbox" name="" id="remember"> <label
+											for="remember">记住用户名</label> <a href="#">忘记密码</a>
+									</div>
+								</li>
+								<li><input type="button" value="登录" class="submit_input"
+									@click="login"></li>
+							</ul>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 版权所有-->
+	<div class="footer">
+		<div class="foot_link">
+			<a href="#">关于我们</a><span> | </span> <a href="#">联系我们</a><span>
+				| </span> <a href="#">招聘广告</a><span> | </span> <a href="#">友情链接</a>
+		</div>
+		<p>CopyRight &copy; 2019 衡阳市源辰信息科技有限公司 All Rights Reserverd</p>
+		<p>电话：0734-8355998 湘ICP备16015987号</p>
+	</div>
+	<script src="js/jquery-3.4.1.min.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/qs.js"></script>
+	<script type="text/javascript">
+	//切换验证码
+	function refresh(obj){
+		obj.src="code/getcode?"+Math.random();
+	}
+	
+	let app = new Vue({
+		el: "#app",
+		data:{
+			account:"懒懒的唐",
+			pwd:"520320",
+			code:"",
+			status:[false,false,false],
+			info:""
+		},
+		methods:{
+			checkInfo: function(flag){
+				let correct = false;
+				if(flag == 0){
+					let reg1 = /^1(3|4|5|6|7|8|9)\d{9}$/;
+					let reg2 = /^[\u4e00-\u9fff\w]{2,16}$/;
+					let reg3 = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+					if(!((reg1.test(this.account) ||  (reg2.test(this.account)) ||  (reg3.test(this.account))))){
+						correct = false;
+					}else{
+						correct = true;
+					}
+				}else if(flag == 1){
+					let reg = /^[\w@!#$%&,\.]{6,16}$/;
+					if(!(reg.test(this.pwd))){
+						correct = false;
+					}else{
+						correct = true;
+					}
+				}else if(flag == 2){
+					let reg = /^\w{4}$/;
+					if(!(reg.test(this.code))){
+						correct = false;
+					}else{
+						this.info="验证码错误";
+						correct = true;
+					}
 				}
-			},)
-			
+				
+				if(correct){
+					Vue.set(app.status,flag,false);
+				}else{
+					Vue.set(app.status,flag,true);
+				}
+			},
+			login:function(){
+				this.checkInfo(0);
+				this.checkInfo(1);
+				this.checkInfo(2);
+				
+				if($.inArray(true, this.status) == -1){
+					Vue.set(app.status,2,false);
+					
+					axios.post("admin/userlogin",qs.stringify({nickName:this.account,pwd:this.pwd,yzm:this.code})).then(result => {
+						if(result.data.code == 501){
+							Vue.set(app.status,2,true);
+						}else if(result.data.code == 200){
+							let temp =document.referrer;
+							
+							if(temp = "" || temp ==undefined || temp.indexOf("register.html")){
+								location.href = "/view/index.html";
+							}else{
+								history.go(-1);
+							}
+						}else{
+							this.info="账号或密码错误"
+							Vue.set(app.status,2,true);
+						}
+					})
+					}
+			}
 		}
+	})
+	
 	</script>
+
+
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.lldt.fresh.goods;
+package com.lldt.fresh;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -9,9 +9,9 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @SpringBootApplication
 @EnableEurekaClient
 @EnableRedisHttpSession //将session存到redis
-@MapperScan("com.lldt.fresh.user.mapper")
-public class FreshGoodsApplication {
+@MapperScan("com.lldt.fresh.mapper")
+public class FreshUserApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(FreshGoodsApplication.class, args);
+		SpringApplication.run(FreshUserApplication.class, args);
 	}
 }

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 注意：namespace中的值必须是对应接口的全路径，SQL语句中的id值必须是这个接口中对应方法名称 -->
+<mapper namespace="com.lldt.fresh.mapper.IGoodInfoMapper">
+	<select id="findAllType" resultType="GoodsType">
+		select tno,tname
+		,pic from
+		goodstype where status != 0 order by tno asc;
+	</select>
+
+	<select id="findByPage" resultType="GoodsInfo" parameterType="map">
+		select gno,tno,gname
+		,price,intro,balance,pics,unit,qperied,weight,descr from goodsinfo
+		order by tno asc limit #{page} ,#{rows} ;
+	</select>
+
+	<select id="findTypeByPage" resultType="GoodsType"
+		parameterType="map">
+		select tno,tname ,pic,status from goodstype order by tno
+		asc limit #{page} ,#{rows} ;
+	</select>
+
+	<insert id="add" parameterType="GoodsInfo">
+		insert into goodsinfo
+		values(0,#{gname},#{tno},#{price},#{intro},#{balance},#{pics},#{unit},#{qperied},#{weight},#{descr});
+	</insert>
+	<select id="getTotal" resultType="int">
+		select count(gno) from
+		goodsinfo
+	</select>
+
+	<select id="getTypeTotal" resultType="int">
+		select count(tno) from
+		goodstype
+	</select>
+
+	<select id="findindexAll" resultMap="indexAll">
+		SELECT
+		gno,gname,i1.tno,price,pics ,pic,tname
+		FROM
+		goodsinfo i1,goodstype t
+		where (SELECT count(*) + 1 FROM goodsinfo i2 WHERE i2.tno = i1.tno AND
+		i2.gno > i1.gno ) &lt;=4
+		and t.tno = i1.tno ORDER BY i1.tno;
+	</select>
+
+	<resultMap type="GoodsType" id="indexAll" autoMapping="true">
+		<id column="tno" property="tno"></id>
+
+		<collection property="goodinfos" ofType="GoodsInfo"
+			autoMapping="true">
+			<id column="gno" property="gno"></id>
+		</collection>
+	</resultMap>
+
+
+	<select id="findByTno" resultType="GoodsInfo" parameterType="map">
+		select gno,tno,gname
+		,price,intro,balance,pics,unit,qperied,weight,descr from goodsinfo
+		where tno =#{tno} order by tno desc limit #{page} ,#{rows};
+	</select>
+
+
+	<select id="findByTnoprice" resultType="GoodsInfo"
+		parameterType="map">
+		select gno,tno,gname
+		,price,intro,balance,pics,unit,qperied,weight,descr from goodsinfo
+		where tno =#{tno} order by price desc limit #{page} ,#{rows};
+	</select>
+
+	<select id="getByTnoTotal" resultType="int">
+		select count(gno) from
+		goodsinfo where tno =#{tno}
+	</select>
+
+	<select id="findByGno" resultType="GoodsInfo" parameterType="int">
+		select gno,tno,gname
+		,price,intro,balance,pics,unit,qperied,weight,descr from goodsinfo
+		where gno =#{gno};
+	</select>
+
+
+	<!-- 创建索引用 -->
+	<select id="findAllGoods" resultType="map">
+		select gno, gname, price, intro, pics, tname from goodsinfo g, goodstype t where g.tno=t.tno
+	</select>
+</mapper>

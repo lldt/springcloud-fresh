@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 注意：namespace中的值必须是对应接口的全路径，SQL语句中的id值必须是这个接口中对应方法名称 -->
+<mapper namespace="com.lldt.fresh.mapper.IAdminInfoMapper">
+	<select id="login" resultType="AdminInfo" parameterType="AdminInfo">
+		select
+		aid , aname ,tel from admininfo where aname = #{aname} and
+		pwd=password(#{pwd});
+	</select>
+
+	<select id="findByAid" resultType="AdminInfo" parameterType="string">
+		select aid , aname ,tel from admininfo where aid = #{aid};
+	</select>
+
+	<select id="userlogin" resultType="MenberInfo" parameterType="MenberInfo">
+		select mno , nickName ,realName,tel,email,photo from menberinfo where
+		nickName = #{nickName} and pwd=password(#{pwd}) and status != 0;
+	</select>
+
+	<select id="findAll" resultType="AdminInfo">
+		select aid , aname
+		,tel from admininfo ;
+	</select>
+
+	<insert id="add" parameterType="map">
+		insert into admininfo
+		values(0,#{aname},password(#{pwd}),#{tel});
+
+	</insert>
+
+	<update id="update" parameterType="AdminInfo">
+		update admininfo set
+		pwd=password(#{pwd})
+		where aid=#{aid}
+	</update>
+
+	<insert id="useradd" parameterType="map">
+		insert into menberinfo
+		values(0,#{nickName},'',password(#{pwd}),#{tel},#{email},'',#{regDate},1)
+	</insert>
+	
+	
+	<select id="finduserAll" resultType="MenberInfo">
+		select mno , nickName,realName
+		,tel,status from menberinfo ;
+	</select>
+	
+	<update id="freeze" parameterType="map">
+		update menberinfo set
+		status = #{status}
+		where mno=#{mno}
+	</update>
+</mapper>
